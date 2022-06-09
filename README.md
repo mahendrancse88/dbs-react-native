@@ -18,9 +18,7 @@ $ npm start
 ```
 
 ### Live Test
- Instructions on how to use them in your own application are linked below.
+Open Any browser http://localhost:19002/
 
-| platform | Link |
-| ------ | ------ |
-| Snack | [https://snack.expo.io/@xavier_akki/search-screen-project] |
+you can build ios and android
 
