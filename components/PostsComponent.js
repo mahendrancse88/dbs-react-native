@@ -6,9 +6,10 @@ const PostsComponent = ({ posts, index }) => {
         <View style={styles.movieCard} key={'con2'+posts.random} >
             <View  key={'con'+posts.random} style={{alignItems: "left", justifyContent: "left",  maxHeight: 250,width:'100%' }} >
                 <View   key={'con1'+posts.random} style={{ padding: 10 }} >
-                    <Text  key={'Title'-index} style={styles.title} >{posts.title}</Text>
-                    <Text  key={'body'+posts.random} style={{ fontSize: 16}} >{posts.body}</Text>
-                    <Text key={'randm'+posts.random}  style={{ fontSize: 12,  borderBottomWidth: 0.5, borderBottomColor: "grey" }} ><b>{posts.random}</b></Text>
+                
+            {posts.title && <Text  key={'Title'-index} style={styles.title} >{posts.title}</Text>  }
+                {posts.body && <Text  key={'body'+posts.random} style={{ fontSize: 16}} >{posts.body}</Text> }
+            {posts.random &&  <Text key={'randm'+posts.random}  style={{ fontSize: 12,  borderBottomWidth: 0.5, borderBottomColor: "grey" }} ><b>{posts.random}</b></Text>  }
                 </View>
             </View>
         </View>
@@ -28,12 +29,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "#505050",
         fontFamily: 'menlo',
-    },
-    synopsis: {
-        fontSize: 14,
-        fontWeight: "200",
-        color: "grey",
-        flexShrink: 1
     }
 });
 

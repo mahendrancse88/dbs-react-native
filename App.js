@@ -7,7 +7,8 @@ import {
   FlatList,
   ActivityIndicator,
   StatusBar,
-  Platform
+  Platform,
+  Image
 } from 'react-native';
 import SearchComponent from './components/SearchComponent';
 import PostsComponent from './components/PostsComponent';
@@ -31,12 +32,11 @@ const App = () => {
     }
 
 
-  }, [query])
-  console.log(DATA)
+  })
   return (
     <View key={'Full-Containor'} style={{ flex: 1, paddingTop: 0, backgroundColor: 'white'  }}>
         <View key={'Full-Containor-gif'} style={styles.header} > 
-            <img src={require('./assets/doggo_walk.gif')} alt="loading..." /> 
+            <Image source={require('./assets/doggo_walk.gif')} alt="loading..." /> 
         </View>
         <View style={styles.header} key={'Full-Containor-header'} >
             <SearchComponent query={query} fetchData={() => { fetchData(query, dispatch,DATA) }} setQuery={q => { dispatch({ type: ACTIONS.SET_QUERY, payload: q }) }} />
