@@ -2,21 +2,64 @@ import Axios from "axios"
 
 import {ACTIONS} from '../reducers/SearchReducer';
 
-export const fetchData = async (query, dispatch) => {
-
+export const fetchData = async (query, dispatch, data) => {
+    
     dispatch({ type: ACTIONS.SET_LOADING, payload: true })
-
+    let arrySet =[];
+    if(query.length < 2) {
+        dispatch({ type: ACTIONS.SET_ERROR, payload: null }) 
+    }
     try {
-        let res = await Axios.get('https://jsonplaceholder.typicode.com/posts', {
-            params: {
-                q: query,
-                limit: 16,
-                page: 1
+       
+        data.filter(item => {
+            if(item.body.toString().toLowerCase().indexOf(query.toLowerCase()) > -1) {
+                arrySet.push(item)
             }
         })
-        if (res.data) {
 
-            dispatch({ type:ACTIONS.SET_DATA, payload: res.data })
+
+        if (arrySet.length > 0) {
+           
+            dispatch({ type:ACTIONS.SET_DATA, payload: arrySet })
+       
+
+        } 
+        dispatch({ type: ACTIONS.SET_LOADING, payload: false })
+        dispatch({ type: ACTIONS.SET_LOADING_MORE, payload: false })
+        dispatch({ type: ACTIONS.SET_ERROR, payload: null })
+    } catch (error) {
+
+        console.log(error);
+        dispatch({ type: ACTIONS.SET_ERROR, payload: error })
+        dispatch({ type: ACTIONS.SET_LOADING_MORE, payload: false })
+        dispatch({ type: ACTIONS.SET_LOADING, payload: false })
+
+    }
+
+
+}
+
+export const fetchDataAll = async ( dispatch) => {
+
+    dispatch({ type: ACTIONS.SET_LOADING, payload: true })
+    let arrySet =[];
+    try {
+        let res = await Axios.get('https://jsonplaceholder.typicode.com/posts')
+        if (res.data) {
+            for (var j =0; j < 30; j++) {
+                for (var i =0; i < 100; i++) {
+                    let randm = Math.floor(Math.random() * (9000000000-1000000000+1)) + 1000000000;
+                    arrySet.push({
+                        id:res.data[i].id,
+                        title:res.data[i].title,
+                        body:res.data[i].body,
+                        userId:res.data[i].userId,
+                        random:randm
+                    })
+                }
+            }
+            dispatch({ type:ACTIONS.SET_DATA, payload: arrySet })
+       
 
         } else if (res.data.error) {
 
@@ -31,50 +74,11 @@ export const fetchData = async (query, dispatch) => {
 
         console.log(error);
         dispatch({ type: ACTIONS.SET_ERROR, payload: error })
-        dispatch({ type: ACTIONS.SET_LOADING, payload: false })
         dispatch({ type: ACTIONS.SET_LOADING_MORE, payload: false })
-
-    }
-
-
-}
-
-export const fetchNextPage = async (query, page, DATA, dispatch) => {
-
-
-    try {
-        let res = await Axios.get('https://jsonplaceholder.typicode.com/posts', {
-            params: {
-                q: query,
-                limit: 16,
-                page: page
-            }
-        })
+        dispatch({ type: ACTIONS.SET_LOADING, payload: false })
       
-        if (res.data.length > 0) {
-            if (res.data.length == 0) {
-
-                alert("no more results found")
-
-                return
-
-            }
-            console.log(res.data);
-            dispatch({ type: ACTIONS.SET_DATA, payload: [...DATA, ...res.data] })
-
-        } else if (res.data.error) {
-            alert("try again")
-        }
-
-        dispatch({ type: ACTIONS.SET_LOADING, payload: false })
-        dispatch({ type: ACTIONS.SET_LOADING_MORE, payload: false })
-    } catch (error) {
-
-        console.log(error);
-
-        dispatch({ type: ACTIONS.SET_LOADING, payload: false })
-        dispatch({ type: ACTIONS.SET_LOADING_MORE, payload: false })
 
     }
+
 
 }

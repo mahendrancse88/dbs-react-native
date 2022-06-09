@@ -9,7 +9,7 @@ export const SearchReducer = (state, action) => {
 
             return { ...state, DATA: action.payload }
 
-        case ACTIONS.SET_DATA:
+        case ACTIONS.SET_LOADING:
 
             return { ...state, loading: action.payload }
 
