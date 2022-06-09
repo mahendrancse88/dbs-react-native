@@ -1,16 +1,4 @@
-# React Native Search Screen
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/akshatkumawat/react-native-search-screen)
-
-This is a beautiful search screen using outside api and useReducer.
-in this project you'll learn :
-
-  - useEffect
-  - Axios
-  - useReducer
-  - using outside Api
-  - dispaching actions
-  - complex Ui Concept
+# DBS React Native Assignment
 
 
 # Clone the repository :
